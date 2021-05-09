@@ -1,0 +1,30 @@
+name: test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  macports:
+    name: MacPorts
+    runs-on: macos-latest
+    steps:
+      - run: curl -fsSLO https://distfiles.macports.org/MacPorts/MacPorts-2.6.4.tar.bz2
+      - run: tar fx MacPorts-2.6.4.tar.bz2
+      - run: >
+          ./configure
+          --prefix=${HOME}/macports
+          --with-tclpackage=${HOME}/macports/tcl
+          --with-install-user=${USER}
+          --with-install-group=staff
+        working-directory: MacPorts-2.6.4
+      - run: make
+        working-directory: MacPorts-2.6.4
+      - run: make install
+        working-directory: MacPorts-2.6.4
+      - run: ls -l ${HOME}/macports
+      - run: echo "${HOME}/macports/bin" >> $GITHUB_PATH
+      - run: port version
+      - run: port selfupdate
+      - run: port install tig
+      - run: tig --version
