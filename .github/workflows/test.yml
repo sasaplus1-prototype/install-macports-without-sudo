@@ -27,5 +27,5 @@ jobs:
       - run: port version
       - run: port selfupdate
       - run: port help install
-      - run: port install -b tig
-      - run: tig --version
+      - run: port install bash
+      - run: bash --version
