@@ -26,5 +26,6 @@ jobs:
       - run: echo "${HOME}/macports/bin" >> $GITHUB_PATH
       - run: port version
       - run: port selfupdate
-      - run: port install tig
+      - run: port install --help
+      - run: port install -b tig
       - run: tig --version
